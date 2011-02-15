@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "scanning..."
+sudo wifi-select wlan0

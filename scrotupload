@@ -1,0 +1,4 @@
+#!/bin/bash
+
+scrot -e 'google picasa post --src `ls $f` --title "Screenshots" &> /dev/null; mv $f \$HOME/docs/images/shots'
+

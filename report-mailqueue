@@ -1,0 +1,10 @@
+#!/bin/bash
+
+MAILQUEUE=$HOME/data/mail/queue
+QUEUECOUNT=`ls $MAILQUEUE | wc -l`
+echo $QUEUECOUNT
+#if [ $QUEUECOUNT -gt 0 ]
+#then
+#echo "QUEUE"
+#fi
+

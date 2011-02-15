@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# quick synchronization of various (mostly google) related services
+# to local cached files
+
+mail-send-queue &>/dev/null &
+mail-sync-imap &>/dev/null &
+goobook-dump-static &>/dev/null &
+cal-week-dump &>/dev/null &
+cal-month-dump &>/dev/null &

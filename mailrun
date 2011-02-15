@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# the f flag tells pgrep to match the pattern anywhere in the full argument
+# string of the process instead of just the executable name
+PID=$(pgrep -f offlineimap)
+
+#[[ -n "$PID" ]] && exit 1
+[[ -n "$PID" ]] && kill $PID
+
+offlineimap -o -u Noninteractive.Quiet &>/dev/null &
+
+exit 
+

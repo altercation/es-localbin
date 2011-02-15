@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sed "s|locale.getpreferredencoding()|'utf-8'|g" -i ~/bin/gcalcli
+sed '/self.allCals.entry.sort/,+2 s/^/#/' -i ~/bin/gcalcli

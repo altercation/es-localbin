@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PID=`pgrep offlinemap`
+
+[[ -n "$PID" ]] && exit 1
+
+offlineimap -o -u Noninteractive.Quiet &>/dev/null &
+logger "cron-sync-offlineimap run"
+
+exit 0

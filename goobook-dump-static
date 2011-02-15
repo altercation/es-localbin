@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# creates a static text dump of contacts from goobook
+# for use by mutt
+
+goobook reload && goobook query '@' | sort -u > ~/$DATA_DIR/mail/contacts/contacts.txt
+cat ~/$DATA_DIR/mail/contacts/contacts.txt | awk '{printf("<%s>\n",$1)}' > ~/$DATA_DIR/mail/contacts/addresses.txt
+

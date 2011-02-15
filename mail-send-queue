@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PID=`pgrep msmtp`
+MAILQUEUE=$HOME/data/mail/queue
+QUEUECOUNT=`ls $MAILQUEUE | wc -l`
+
+[[ -n "$PID" ]] && exit 1
+
+if [ $QUEUECOUNT -gt 0 ]
+then
+msmtpq -r &>/dev/null &
+logger "cron-send-mailqueue run"
+fi
+
+exit 0

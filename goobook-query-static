@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# this queries a static text file of contacts
+# output from goobook using something like
+#
+# goobook reload && \ 
+# goobook query '@' | sort -u > ~/mail/temp/contacts.txt
+
+for QUERY in "${@}" 
+do 
+	grep -i -e "${QUERY}" ~/mail/contacts/contacts.txt || : 
+done

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#dropbox may not recover after a network change so we kill it and restart
+#need to test if this works with ethernet hand off
+
+if ps -ef | grep -q "/opt/dropbox/[d]ropbox"
+then
+	DROPBOX_USER=`ps -ef | grep "/opt/dropbox/[d]ropbox" | awk '{ print $1 }'`
+	killall dropbox && logger "Dropbox killed $1"
+	su -c '/usr/bin/dropboxd &' $DROPBOX_USER && logger "Dropbox restarted under user $DROPBOX_USER $1"
+fi 

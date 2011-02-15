@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SYSPATH=/sys/class/power_supply/BAT1/
+WATTS=`cat /proc/acpi/battery/BAT1/state | grep rate | awk '{print $3*.001}' | sed -n 's/^\(.*\..\).*/\1/p'`
+POWERNOW=`cat $SYSPATH"power_now"`
+ENERGYNOW=`cat $SYSPATH"energy_now"`
+TIME_REMAINING=`echo "scale=2;($ENERGYNOW/$POWERNOW)*60" | bc` #reported in minutes
+HOURS_REMAINING=`echo "scale=0;($TIME_REMAINING/60)" | bc`
+MINUTES_REMAINING=`echo "scale=0;($TIME_REMAINING%60)" | bc`
+
+if grep -q discharging /proc/acpi/battery/BAT1/state
+then
+	echo -n "-"
+else
+	echo -n "+"
+fi
+
+printf "%i:%02i\n" $HOURS_REMAINING $MINUTES_REMAINING
+

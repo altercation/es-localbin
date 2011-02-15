@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WATTS=`cat /proc/acpi/battery/BAT1/state | grep rate | awk '{print $3*.001}' | sed -n 's/^\(.*\..\).*/\1/p'`
+#if [ -n $WATTS ]
+if grep -q discharging /proc/acpi/battery/BAT1/state
+then
+echo -n $WATTS"W" 
+fi
+

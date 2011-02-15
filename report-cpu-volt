@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo cpupowerd -s | grep VID | awk '{print $5}' | cut -c1-3 

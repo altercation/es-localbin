@@ -1,0 +1,15 @@
+#!/bin/bash
+
+QUAL=`iwconfig wlan0|awk '/Link/ {print $2}'|sed s/Quality=//|sed s_/100__`;
+ESSID=`iwconfig wlan0|grep ESSID|sed s/ESSID://|sed 's/[^"\r\n]*"//'|sed 's/".*//'`;
+echo $ESSID
+
+#VOL $(amixer sget 'Master' | grep "Front Left\:" | awk '{print $5}') \
+#PWR$(cat /var/run/pm-utils/pm-powersave/state | sed 's/true/SAV/' | sed 's/false/MAX/') \
+#$(acpi -b | sed s/Battery\ 0:/BAT/ | sed s/\ Unknown\,\ /+/ | sed s/\ Discharging\,\ /-/) \
+#CPU $(sensors | grep crit | awk '{print $2}') \ 
+#$(sudo cpupowerd -s | grep FID | awk '{print $5}')Hz \
+#$(sudo cpupowerd -s | grep VID | awk '{print $5}')V \
+#$(uptime | sed 's/.*://; s/,//g') '|' $(date +'%F %H:%M')
+
+#s/"[^"\r\n]*"//'

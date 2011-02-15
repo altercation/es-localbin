@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$1" != "" ]
+then
+export USER=$1
+fi 
+
+# update vlock message
+update_vlock_message() {
+	#export VLOCK_PROMPT_TIMEOUT=15
+	fortune="`fortune issa-haiku`"
+	export VLOCK_MESSAGE="$fortune`echo -e '\n\n'`"
+}
+update_vlock_message && sudo vlock -ns &

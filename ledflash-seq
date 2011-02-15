@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# takes three values: on duration, off duration, cycles
+
+for i in $1 
+do
+    echo $i
+    echo 0 > /sys/class/leds/tpacpi\:\:power/brightness
+    sleep $i
+    echo 0 > /sys/class/leds/tpacpi\:\:thinkvantage/brightness
+    sleep $i
+done
+

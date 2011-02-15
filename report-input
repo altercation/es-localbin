@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Prints volume changes to stdout.  
+# Depends on inotify-tools package
+
+
+CURRENT_VOL=$(amixer -D default sget Capture,0 | grep -m 1 "\[on\]" | cut -f 7 -d " " | sed -e's/\[//g' -e 's/%\]//g') 
+if [ $CURRENT_VOL ]; then
+	echo $CURRENT_VOL
+else
+	echo "-1"
+fi
+

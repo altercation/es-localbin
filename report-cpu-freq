@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo cpupowerd -s | grep FID | awk '{print $5}' 
