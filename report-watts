@@ -1,9 +1,10 @@
 #!/bin/bash
-
-WATTS=`cat /proc/acpi/battery/BAT1/state | grep rate | awk '{print $3*.001}' | sed -n 's/^\(.*\..\).*/\1/p'`
-#if [ -n $WATTS ]
-if grep -q discharging /proc/acpi/battery/BAT1/state
-then
-echo -n $WATTS"W" 
-fi
-
+volt=`cat /proc/acpi/battery/BAT0/state | grep -i "present voltage" | awk '{print $3}'`
+ampere=`cat /proc/acpi/battery/BAT0/state | grep -i "present rate" | awk '{print $3}'`
+volt=`echo "scale=3;$volt/1000"|bc`
+ampere=`echo "scale=3;$ampere/1000"|bc`
+echo "Present voltage: " $volt "Volt"
+echo "Present current: " $ampere "Ampere"
+power=`echo "scale=3;$volt*$ampere"|bc`
+#power=${power/.*}
+echo "Present power   :" $power "Watt"

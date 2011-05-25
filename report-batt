@@ -26,6 +26,8 @@ battery_info()
     PWR_DRAW=`cat $BATTERY"/"$DRAW_PREFIX"_now"`
     PWR_NOW=`cat $BATTERY"/"$PWR_PREFIX"_now"`
     PWR_MAX=`cat $BATTERY"/"$PWR_PREFIX"_full"`
+    PWR_AMPS=`cat "$BATTERY/current_now"`
+    PWR_VOLTS=`cat "$BATTERY/voltage_now"`
 }
 
 TOTAL_PWRMAX=0
@@ -41,6 +43,10 @@ battery_info $battery
     TOTAL_PWRNOW=`echo "$TOTAL_PWRNOW+($PWR_NOW/$DIVISOR)" | bc`
     if [ $PWR_DRAW -gt 0 ]; then
         TOTAL_PWRDRAW=`echo "($PWR_DRAW/$DIVISOR)" | bc`
+        #volts=`echo "scale=3;$PWR_VOLTS/1000"|bc`
+        #amps=`echo "scale=3;$PWR_AMPS/1000"|bc`
+        #WATTS=`echo "scale=3;$volts*$amps"|bc`
+        #WATTS=${WATTS/.*}
     fi
 done
 CHARGE_REMAINING=`echo "scale=2; ($TOTAL_PWRNOW/$TOTAL_PWRMAX)*100" | bc`
