@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# Find the line in "xrandr -q --verbose" output that contains current screen orientation and "strip" out current orientation.
+
+rotation="$(xrandr -q --verbose | grep ' connected' | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
+
+# Using current screen orientation proceed to rotate screen and input devices.
+
+stylus="Wacom ISDv4 E6 Pen stylus"
+touch="Wacom ISDv4 E6 Finger touch"
+eraser="Wacom ISDv4 E6 Pen eraser"
+
+case "$rotation" in
+    normal)
+    # rotate to the left
+    xrandr -o left
+    xsetwacom set "$stylus" rotate cw
+    xsetwacom set "$eraser" rotate cw
+    xsetwacom set "$touch" rotate cw
+    ;;
+    left)
+    # rotate to inverted
+    xrandr -o inverted
+    xsetwacom set "$stylus" rotate half
+    xsetwacom set "$eraser" rotate half
+    xsetwacom set "$touch" rotate half
+    ;;
+    inverted)
+    # rotate to the right
+    xrandr -o right
+    xsetwacom set "$stylus" rotate ccw
+    xsetwacom set "$eraser" rotate ccw
+    xsetwacom set "$touch" rotate ccw
+    ;;
+    right)
+    # rotate to normal
+    xrandr -o normal
+    xsetwacom set "$stylus" rotate none
+    xsetwacom set "$eraser" rotate none
+    xsetwacom set "$touch" rotate none
+    ;;
+esac
