@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -f /var/lock/swipe ]; then exit; fi
+
+touch /var/lock/swipe
+
+case $1 in
+    left)       xdotool key alt+Left ;;
+    right)      xdotool key alt+Right ;;
+    up)         cellwriter --show-window ;;
+    down)       cellwriter --hide-window ;;
+    mod-left)   xdotool key alt+Left ;;
+    mod-right)  xdotool key alt+Right ;;
+    mod-up)     xdotool key alt+Left ;;
+    mod-down)   xdotool key alt+Right ;;
+    *)     echo "invalid swipe direction specified" ;;
+esac
+
+sleep 0.25
+
+rm /var/lock/swipe
