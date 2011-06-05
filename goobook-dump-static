@@ -3,6 +3,14 @@
 # creates a static text dump of contacts from goobook
 # for use by mutt
 
+# sourcing .zshenv (simple and works for both bash and zsh)
+# to get $DATA_DIR values
+
+. $HOME/.profile
+
+logger "GOOBOOK: Beginning static file dump to $DATA_DIR/mail/contacts/"
+
 goobook reload && goobook query '@' | sort -u > ~/$DATA_DIR/mail/contacts/contacts.txt
 cat ~/$DATA_DIR/mail/contacts/contacts.txt | awk '{printf("<%s>\n",$1)}' > ~/$DATA_DIR/mail/contacts/addresses.txt
 
+logger "GOOBOOK: Completed static file dump"

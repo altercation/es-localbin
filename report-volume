@@ -6,8 +6,8 @@
 
 CURRENT_VOL=$(amixer -D default sget Master,0 | grep -m 1 "\[on\]" | cut -f 7 -d " " | sed -e's/\[//g' -e 's/%\]//g') 
 if [ $CURRENT_VOL ]; then
-	echo $CURRENT_VOL
+        echo -n "$CURRENT_VOL "
 else
-        echo "MUTE"
+        echo -n "MUTE "
 fi
 

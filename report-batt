@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#WATTS=`cat /proc/acpi/battery/BAT1/state | grep rate | awk '{print $3*.001}' | sed -n 's/^\(.*\..\).*/\1/p'`
+if [ "`cat /var/run/pm-utils/pm-powersave/state`" = "true" ]; then POWERMODE=MIN; else POWERMODE=MAX; fi
+
+echo -n "<fc=#b58900>${powermode}</fc>"
 
 AC_ONLINE=`cat /sys/class/power_supply/AC/online`
 
@@ -49,6 +51,10 @@ battery_info $battery
         #WATTS=${WATTS/.*}
     fi
 done
+#WATTS=printf $3*.001}' | sed -n 's/^\(.*\..\).*/\1/p'`
+WATTS=`echo "($TOTAL_PWRDRAW/100000)" | bc`
+WATTS=`printf "%.*f" 1 $WATTS`
+
 CHARGE_REMAINING=`echo "scale=2; ($TOTAL_PWRNOW/$TOTAL_PWRMAX)*100" | bc`
 CHARGE_REMAINING=${CHARGE_REMAINING/.*}
 TIME_REMAINING=`echo "scale=2;($TOTAL_PWRNOW/$TOTAL_PWRDRAW)*60" | bc`
@@ -74,5 +80,5 @@ else
     BATT_COLOR="#dc322f"
 fi
 
-echo "<fc=$BATT_COLOR>$AC_PREFIX$CHARGE_REMAINING%$BATT_TIME</fc>"
+echo "<fc=$BATT_COLOR>$POWERMODE $AC_PREFIX$CHARGE_REMAINING%$BATT_TIME $WATTS W </fc>"
 

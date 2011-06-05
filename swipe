@@ -4,9 +4,16 @@ if [ -f /var/lock/swipe ]; then exit; fi
 
 touch /var/lock/swipe
 
+# note that left and right swiping
+# is aparently reversed here. this
+# is due to the intuitive physicality
+# of the swipe gesture (i.e the user
+# is "pushing a window to the left/right"
+# which results in the inverse of the normal
+# alt-left / alt-right xmonad ws switching)
 case $1 in
-    left)       xdotool key alt+Left ;;
-    right)      xdotool key alt+Right ;;
+    left)       xdotool key alt+Right;;
+    right)      xdotool key alt+Left ;;
     up)         cellwriter --show-window ;;
     down)       cellwriter --hide-window ;;
     mod-left)   xdotool key alt+Left ;;

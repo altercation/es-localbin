@@ -1,7 +1,9 @@
 #!/bin/bash
 
+. $HOME/.profile
+
 PID=`pgrep msmtp`
-MAILQUEUE=$HOME/var/mail/queue
+MAILQUEUE=$HOME/$DATA_DIR/mail/queue
 QUEUECOUNT=`ls $MAILQUEUE | wc -l`
 
 [[ -n "$PID" ]] && exit 1

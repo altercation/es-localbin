@@ -6,7 +6,9 @@
 # goobook reload && \ 
 # goobook query '@' | sort -u > ~/mail/temp/contacts.txt
 
+. $HOME/.zshenv
+
 for QUERY in "${@}" 
 do 
-	grep -i -e "${QUERY}" ~/mail/contacts/contacts.txt || : 
+	grep -i -e "${QUERY}" $HOME/$DATA_DIR/mail/contacts/contacts.txt || : 
 done

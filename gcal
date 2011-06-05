@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# gcal {update|view} {week|month}
+
+# require $DATA_DIR
+. $HOME/.profile
+
+CALDIR=$HOME/$DATA_DIR/cal
+TIMEPERIOD=$2
+CALFILE=cal-$TIMEPERIOD
+
+case $1 in
+    update)
+        gcalcli --cal Ethan --cal 'Family Shared' --cal "US Holidays" --width=21 cal${2:0:1} > $CALDIR/$CALFILE.tmp
+        if [ $? -eq 0 ]
+        then
+            rm $CALDIR/$CALFILE || true
+            mv $CALDIR/$CALFILE.tmp $CALDIR/$CALFILE
+        else
+            rm $CALDIR/$CALFILE.tmp || true
+            echo -n "*" >> $CALDIR/$CALFILE
+        fi
+    ;;
+    view)
+        cat $CALDIR/$CALFILE
+        HOURS_SINCE_UPDATE=$(((`date --utc +%s`-`date --utc --reference=$CALDIR/$CALFILE +%s`)/60/60))
+        if [ "$HOURS_SINCE_UPDATE" -gt "0" ]
+        then
+            echo -n "$HOURS_SINCE_UPDATE hours since last update "
+        fi
+        sleep 30
+    ;;
+esac
