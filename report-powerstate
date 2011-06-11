@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "`cat /var/run/pm-utils/pm-powersave/state`" = "true" ]
+then
+    powermode=MIN
+else
+powermode=MAX
+fi
+
+echo -n "<fc=#b58900>${powermode}</fc>"

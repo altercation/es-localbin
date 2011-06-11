@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# auto = no powersave mode, on = powersave mode
+POWERMODE=on
+POWERMODE=auto
+
+filelist=`find /sys/class/sound/card* -name "product" -print`
+for file in $filelist
+do
+    cat "$file"
+done
+exit
+
+filelist=`find /sys/devices/pci* -name "control" -print`
+
+#echo -n "$filelist"
+
+linecount=0
+for file in $filelist
+do
+if [[ "$file" =~ "power/control" ]] && [[ ! "$file" =~ "usb" ]]; then
+    currentstate=`cat $file`
+    if [[ "$currentstate" != "$POWERMODE" ]]; then
+        echo $file
+        cat "$file/../../product"
+        #echo -n $POWERMODE > $file
+        linecount=`expr ${linecount} + 1`
+    fi
+fi
+done
+echo "LINECOUNT: $linecount"

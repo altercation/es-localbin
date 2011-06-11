@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# source profile for custom environment variables
+. $HOME/.profile
+
+# source other common functions (not used yet)
+#. $BIN_PATH/functions
+
+google2mutt.pl >$MAILDATA/contacts/aliases_new 2>/dev/null
