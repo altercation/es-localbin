@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xclip -sel clip -o | sed 's/javascript://' | python2 -c 'import urllib, sys; print urllib.unquote(sys.stdin.read())' > /tmp/script.js
